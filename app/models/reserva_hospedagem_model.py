@@ -1,17 +1,18 @@
 from app import db
 from sqlalchemy.orm import relationship
 
-class Hospedagem(db.Model):
-    __tablename__ = 'Hospedagem'
-    id_hospedagem = db.Column(db.Integer, primary_key=True)
+
+class ReservaHospedagem(db.Model):
+    __tablename__ = 'ReservaHospedagem'
+    id_reserva_hospedagem = db.Column(db.Integer, primary_key=True)
     check_in = db.Column(db.DateTime)
     check_out = db.Column(db.DateTime)
     quarto_id = db.Column(db.Integer, db.ForeignKey('Quarto.id_quarto'))
     hospede_id = db.Column(db.Integer, db.ForeignKey('Hospede.id_hospede'))
-    quarto = relationship('Quarto', backref='hospedagem')
-    hospede = relationship('Hospede', backref='hospedagem')
+    quarto = relationship('Quarto', backref='ReservaHospedagem')
+    hospede = relationship('Hospede', backref='ReservaHospedagem')
     
-    # metodos banco de dados
+  # metodos banco de dados
     def salvar(self):
         db.session.add(self)
         db.session.commit()
@@ -28,10 +29,8 @@ class Hospedagem(db.Model):
     # metodos de no querys banco
     @staticmethod
     def hospedagem_por_id(id_hospedagem):
-        return Hospedagem.query.get(id_hospedagem)
+        return ReservaHospedagem.query.get(id_hospedagem)
 
     @staticmethod
     def todos_hospedagens():
-        return Hospedagem.query.all()
-
-    
+        return ReservaHospedagem.query.all()
