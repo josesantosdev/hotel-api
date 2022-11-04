@@ -1,9 +1,8 @@
 import os
 
 
-
 class DevelopmentConfig():
-    
+
     db_path = os.path.join(os.path.dirname(__file__), 'hotel.db')
     db_uri = 'sqlite:///{}'.format(db_path)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
