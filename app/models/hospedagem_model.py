@@ -31,7 +31,7 @@ class Hospedagem(db.Model):
         return Hospedagem.query.get(id_hospedagem)
 
     @staticmethod
-    def todos_hospedagens():
+    def todas_hospedagens():
         return Hospedagem.query.all()
 
     
