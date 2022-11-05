@@ -11,6 +11,12 @@ class Hospedagem(db.Model):
     quarto = relationship('Quarto', backref='hospedagem')
     hospede = relationship('Hospede', backref='hospedagem')
     
+    def __init__(self, data) -> None:
+        self.check_in = data.get('check_in')
+        self.check_out = data.get('check_out')
+        self.quarto_id = data.get('quarto_id')
+        self.hospede = data.get('hospede_id')
+    
     # metodos banco de dados
     def salvar(self):
         db.session.add(self)
