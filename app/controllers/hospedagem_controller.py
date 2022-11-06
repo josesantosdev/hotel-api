@@ -5,7 +5,7 @@ from app.serealizers.hospedagem_schema import HospedagemSchema
 
 class HospedagemController:
 
-    hospedagem_controller = Blueprint('hospedagem', __name__)
+    hospedagem_controller = Blueprint('hospedagem_controller', __name__)
 
     @hospedagem_controller.route('/hospedagem', methods=['GET'])
     def consulta_hospedagem():
