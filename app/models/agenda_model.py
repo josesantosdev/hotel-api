@@ -34,6 +34,6 @@ class Agenda(db.Model):
             pass
         else:
             quarto_indisponivel = Quarto.query.filter_by(id_quarto = id_quarto)
-            quarto_indisponivel.atualizar('disponibilidade': False)
+            quarto_indisponivel.atualizar({'disponibilidade': False})
         
     
