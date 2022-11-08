@@ -1,6 +1,13 @@
 from flask import Blueprint, json, Response, request
+
 from app.models.hospedagem_model import Hospedagem
+
+from app.models.agenda_model import Agenda
+
 from app.serealizers.hospedagem_schema import HospedagemSchema
+
+from app.models.quarto_model import Quarto
+
 
 
 class HospedagemController:
@@ -26,13 +33,20 @@ class HospedagemController:
     def deleta_hospedagem():
         hospedagem = Hospedagem.hospedagem_por_id(id)
         hospedagem.deletar()
-        serealized_hospedagem = hospedagem_schema.dumps(hospedagem)
         return custom_response({'mensagem': 'Deletado'}, 201)
 
     @hospedagem_controller.route('/hospedagem/cadastrar', methods=['POST'])
-    def cadastra_hospedagem():
+    def cadastra_hospedagem():  
         request_data = request.get_json()
+        agenda = Agenda.query.filter_by(dia=request_data['check_in'])
+        agenda.atualiazar_agenda(datetime=request_data['check_in'], quarto='quarto_1', id_quarto=request_data['id_quarto'])   
+        
         data = hospedagem_schema.loads(request_data).data
+        
+        quarto_requisitado = data.get('quarto_id')
+        if not Quarto.disponibilidade(quarto_requisitado):
+            return custom_response({'mensagem': 'Erro ao cadastrar quarto não disponível'}, 401)
+    
         hospedagem = Hospedagem(data)
         hospedagem.salvar()
         serealized_hospedagem = hospedagem_schema.dump(hospedagem)

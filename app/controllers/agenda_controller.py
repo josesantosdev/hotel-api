@@ -7,9 +7,9 @@ class AgendaController(object):
     agenda_controller = Blueprint('agenda_controller', __name__)
     
     
-    @agenda_controller.route('/disponiveis', methods=['GET'])
-    def consultar_agenda():
-        agenda = Agenda.quartos_disponiveis()
+    @agenda_controller.route('/disponiveis/<datetime>', methods=['GET'])
+    def consultar_agenda(datetime):
+        agenda = Agenda.quartos_disponiveis(datetime)
         serealized_agenda = agenda_schema.dump(agenda)
         return custom_response(serealized_agenda, 200)
     

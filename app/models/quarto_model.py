@@ -10,6 +10,8 @@ class Quarto(db.Model):
     preço = db.Column(db.Float)
     custo = db.Column(db.Float)
     disponibilidade = db.Column(db.Boolean)
+    
+    
  
  # metodos banco de dados
     def atualizar(self, data):
@@ -21,6 +23,10 @@ class Quarto(db.Model):
     @staticmethod
     def quarto_por_id(id_quarto):
         return Quarto.query.get(id_quarto)
+    
+    def quarto_disponível(self, quarto_id):
+       quarto =  Quarto.query.filter(quarto_id=quarto_id)
+       return quarto.disponibilidade
 
     @staticmethod
     def todos_quartos():

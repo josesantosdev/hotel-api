@@ -9,6 +9,12 @@ class Hospede(db.Model):
     cpf = db.Column(db.Integer, nullable=False, unique=True)
     endereco = db.Column(db.String(255))
     email = db.Column(db.String(255), nullable=False, unique=True)
+    
+    def __init__(self, data):
+        self.nome = data.get('nome')
+        self.cpf = data.get('cpf')
+        self.endereco = data.get('endereco')
+        self.email = data.get('email')
 
     # metodos banco de dados
     def salvar(self):
