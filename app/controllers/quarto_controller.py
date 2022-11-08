@@ -63,4 +63,5 @@ quarto_schema = QuartoSchema()
 def custom_response(res, status_code):
     return Response(
         json.dumps(res),
-        status=status_code, mimetype='application/json')
+        status=status_code, 
+        mimetype='application/json')
